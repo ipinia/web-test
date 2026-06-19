@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- EDITABLE: meta title -->
+  <title>La Palapa Cabo Pulmo — Buceo · Snorkel · Traslados</title>
+  <!-- EDITABLE: meta description -->
+  <meta name="description" content="Traslados, snorkel y buceo en el arrecife de coral más antiguo del Pacífico. Operador local de Cabo Pulmo, BCS. Una experiencia guiada por alguien que creció junto al arrecife.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./brand_assets/logo-icon.svg">
+
+  <!-- Brand tokens and typography — always import before any custom styles -->
+  <link rel="stylesheet" href="./brand_assets/tokens.css">
+  <link rel="stylesheet" href="./brand_assets/typography.css">
+
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--color-white); overflow-x: hidden; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: var(--color-link); text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-inline: auto;
+      padding-inline: var(--space-5);
+    }
+
+    .eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-agua);
+      margin-bottom: var(--space-3);
+    }
+    .eyebrow--light { color: rgba(194, 230, 236, 0.65); }
+
+    /* Wave-shaped section dividers */
+    .wave-sep {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin-bottom: -1px; /* prevents subpixel gaps */
+    }
+    .wave-sep svg { display: block; width: 100%; }
+
+    /* Scroll-reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: var(--weight-medium);
+      border-radius: var(--radius-full);
+      padding: 13px var(--space-6);
+      cursor: pointer;
+      border: none;
+      transition: background var(--transition-fast),
+                  transform var(--transition-fast),
+                  box-shadow var(--transition-fast),
+                  border-color var(--transition-fast);
+      text-decoration: none;
+      line-height: 1;
+    }
+    .btn:focus-visible { outline: 3px solid var(--color-agua); outline-offset: 3px; }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-coral {
+      background: var(--color-coral);
+      color: var(--color-white);
+      box-shadow: 0 4px 22px rgba(212, 97, 74, 0.38);
+    }
+    .btn-coral:hover {
+      background: var(--color-cta-hover);
+      box-shadow: 0 6px 30px rgba(212, 97, 74, 0.48);
+      transform: translateY(-2px);
+      color: var(--color-white);
+    }
+
+    .btn-ghost-light {
+      background: transparent;
+      color: var(--color-white);
+      border: 1.5px solid rgba(250, 252, 252, 0.45);
+    }
+    .btn-ghost-light:hover {
+      background: rgba(250, 252, 252, 0.09);
+      border-color: rgba(250, 252, 252, 0.8);
+      transform: translateY(-2px);
+      color: var(--color-white);
+    }
+
+    .btn-agua {
+      background: var(--color-agua);
+      color: var(--color-white);
+      box-shadow: 0 4px 20px rgba(42, 143, 160, 0.3);
+    }
+    .btn-agua:hover {
+      background: var(--color-deep);
+      box-shadow: 0 6px 28px rgba(42, 143, 160, 0.38);
+      transform: translateY(-2px);
+      color: var(--color-white);
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: var(--color-white);
+      font-size: var(--text-md);
+      padding: var(--space-4) var(--space-8);
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.42);
+    }
+    .btn-whatsapp:hover {
+      background: #1ebe57;
+      box-shadow: 0 8px 38px rgba(37, 211, 102, 0.52);
+      transform: translateY(-2px);
+      color: var(--color-white);
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #main-nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      padding: var(--space-4) 0;
+      transition: background var(--transition-base),
+                  padding var(--transition-base),
+                  box-shadow var(--transition-base);
+    }
+    #main-nav.scrolled {
+      background: var(--color-deep);
+      padding: var(--space-3) 0;
+      box-shadow: 0 2px 24px rgba(13, 59, 78, 0.35);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo img { height: 44px; width: auto; }
+
+    .nav-links {
+      display: none;
+      gap: var(--space-6);
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: rgba(250, 252, 252, 0.78);
+      transition: color var(--transition-fast);
+    }
+    .nav-links a:hover { color: var(--color-white); }
+
+    .nav-cta { display: none; }
+
+    .nav-hamburger {
+      background: none;
+      border: 1px solid rgba(250, 252, 252, 0.35);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--color-white);
+      border-radius: 2px;
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
+    }
+
+    /* Mobile menu open */
+    .nav-mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: var(--space-3);
+      background: var(--color-deep);
+      padding: var(--space-5) var(--space-5) var(--space-6);
+      border-top: 1px solid rgba(250, 252, 252, 0.08);
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: rgba(250, 252, 252, 0.82);
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid rgba(250, 252, 252, 0.06);
+      transition: color var(--transition-fast);
+    }
+    .nav-mobile-menu a:hover { color: var(--color-white); }
+
+    @media (min-width: 768px) {
+      .nav-links  { display: flex; }
+      .nav-cta    { display: inline-flex; }
+      .nav-hamburger { display: none; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: clamp(var(--space-8), 8vw, var(--space-10));
+      overflow: hidden;
+    }
+
+    /* Video container */
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Placeholder background when there's no video yet */
+    .hero-media-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(155deg,
+        #082230 0%,
+        #0D3B4E 45%,
+        #1c5e76 100%
+      );
+    }
+
+    /* Gradient overlay */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(13, 59, 78, 0.42) 0%,
+        rgba(13, 59, 78, 0.18) 38%,
+        rgba(13, 59, 78, 0.72) 72%,
+        rgba(13, 59, 78, 0.94) 100%
+      );
+    }
+
+    /*
+      SIGNATURE ELEMENT: Bathymetric depth contours
+      Translucent SVG overlay that echoes nautical charts
+      used to map reef topography — appropriate for a dive operator.
+    */
+    .hero-bathy {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-bathy svg {
+      position: absolute;
+      right: -5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(460px, 55vw, 820px);
+      height: auto;
+      opacity: 0.055;
+    }
+
+    /* Subtle light caustic shimmer */
+    .hero-caustics {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 90px 70px at 22% 28%, rgba(42,143,160,0.7) 0%, transparent 70%),
+        radial-gradient(ellipse 120px 90px at 72% 18%, rgba(194,230,236,0.6) 0%, transparent 70%),
+        radial-gradient(ellipse 70px 100px at 52% 58%, rgba(42,143,160,0.5) 0%, transparent 70%),
+        radial-gradient(ellipse 140px 55px at 88% 74%, rgba(194,230,236,0.5) 0%, transparent 70%);
+      opacity: 0.06;
+      animation: caustics 10s ease-in-out infinite alternate;
+    }
+    @keyframes caustics {
+      0%   { transform: translate(0,    0)    scale(1);    }
+      100% { transform: translate(14px, -9px) scale(1.05); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-caustics { animation: none; }
+    }
+
+    /* Video placeholder instruction */
+    .hero-video-note {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 3;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      padding: var(--space-5) var(--space-6);
+      background: rgba(13, 59, 78, 0.55);
+      border: 1px dashed rgba(194, 230, 236, 0.28);
+      border-radius: var(--radius-md);
+      width: min(420px, 86vw);
+    }
+    .hero-video-note p {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: rgba(194, 230, 236, 0.75);
+      line-height: var(--leading-relaxed);
+      margin: 0;
+    }
+    .hero-video-note strong {
+      display: block;
+      font-size: var(--text-base);
+      color: var(--color-foam);
+      margin-bottom: var(--space-2);
+      font-weight: var(--weight-medium);
+    }
+
+    /* Hero text content */
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      max-width: 780px;
+    }
+
+    .hero-eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: rgba(194, 230, 236, 0.65);
+      margin-bottom: var(--space-4);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-4xl), 7.5vw, var(--text-6xl));
+      font-weight: var(--weight-regular);
+      line-height: var(--leading-tight);
+      color: var(--color-white);
+      letter-spacing: var(--tracking-tight);
+      margin-bottom: var(--space-5);
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-foam);
+    }
+
+    .hero-tagline {
+      font-family: var(--font-body);
+      font-size: clamp(var(--text-base), 2vw, var(--text-lg));
+      font-weight: var(--weight-light);
+      color: rgba(194, 230, 236, 0.82);
+      line-height: var(--leading-loose);
+      max-width: 540px;
+      margin-bottom: var(--space-7);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    /* ============================================================
+       SECTION SHARED STYLES
+    ============================================================ */
+    .section-pad { padding-block: clamp(var(--space-8), 9vw, var(--space-10)); }
+
+    .section-head { max-width: 580px; margin-bottom: var(--space-8); }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 4.5vw, var(--text-4xl));
+      color: var(--color-deep);
+      line-height: var(--leading-snug);
+      margin-bottom: var(--space-4);
+    }
+    .section-head p {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-light);
+      color: var(--color-roca);
+      line-height: var(--leading-loose);
+    }
+
+    /* ============================================================
+       SERVICES
+    ============================================================ */
+    #servicios { background: var(--color-white); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+    @media (min-width: 560px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .service-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-7) var(--space-6) var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--color-agua);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-base);
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 42px rgba(13, 59, 78, 0.11);
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-icon {
+      width: 54px; height: 54px;
+      background: var(--color-foam);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .service-icon svg { width: 26px; height: 26px; fill: var(--color-agua); }
+
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--color-deep);
+      margin: 0;
+    }
+    .service-card p {
+      font-size: var(--text-base);
+      color: var(--color-roca);
+      line-height: var(--leading-relaxed);
+      flex-grow: 1;
+    }
+    .service-link {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-agua);
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      transition: gap var(--transition-fast), color var(--transition-fast);
+    }
+    .service-link:hover { gap: var(--space-3); color: var(--color-deep); }
+
+    /* ============================================================
+       PACKAGES
+    ============================================================ */
+    #paquetes {
+      background: var(--color-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    #paquetes::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -8%;
+      width: 640px; height: 640px;
+      background: radial-gradient(ellipse, rgba(42, 143, 160, 0.14) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .packages-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 4.5vw, var(--text-4xl));
+      color: var(--color-white);
+      line-height: var(--leading-snug);
+      margin-bottom: var(--space-4);
+    }
+    .packages-head p {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-light);
+      color: rgba(194, 230, 236, 0.7);
+      max-width: 560px;
+      line-height: var(--leading-loose);
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      margin-top: var(--space-8);
+    }
+    @media (min-width: 700px) {
+      .packages-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .pkg-card {
+      border: 1px solid rgba(250, 252, 252, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex; flex-direction: column; gap: var(--space-4);
+      transition: background var(--transition-base), border-color var(--transition-base);
+      position: relative;
+    }
+    .pkg-card:hover {
+      background: rgba(42, 143, 160, 0.07);
+      border-color: rgba(42, 143, 160, 0.45);
+    }
+    .pkg-card.pkg-featured {
+      background: rgba(42, 143, 160, 0.11);
+      border-color: rgba(42, 143, 160, 0.5);
+    }
+
+    .pkg-badge {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-coral);
+    }
+    .pkg-card h3 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--color-white);
+      line-height: var(--leading-snug);
+    }
+    .pkg-card > p {
+      color: rgba(194, 230, 236, 0.7);
+      font-size: var(--text-base);
+      line-height: var(--leading-relaxed);
+      flex-grow: 1;
+    }
+    .pkg-includes {
+      display: flex; flex-direction: column; gap: var(--space-2);
+      padding-top: var(--space-4);
+      border-top: 1px solid rgba(250, 252, 252, 0.08);
+    }
+    .pkg-includes li {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-foam);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .pkg-includes li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--color-agua);
+    }
+    .pkg-duration {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: rgba(194, 230, 236, 0.45);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      margin-top: auto;
+      padding-top: var(--space-4);
+    }
+
+    /* ============================================================
+       ABOUT / NOSOTROS
+    ============================================================ */
+    #nosotros { background: var(--color-arena); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(var(--space-7), 6vw, var(--space-9));
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .about-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .about-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 4.5vw, var(--text-4xl));
+      color: var(--color-deep);
+      line-height: var(--leading-snug);
+      margin-bottom: var(--space-5);
+    }
+    .about-text h2 em {
+      font-style: italic;
+      color: var(--color-agua);
+    }
+    .about-text p {
+      font-size: var(--text-md);
+      color: var(--color-deep);
+      line-height: var(--leading-loose);
+      opacity: 0.82;
+      margin-bottom: var(--space-4);
+    }
+
+    .about-pull {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--text-xl);
+      line-height: var(--leading-snug);
+      color: var(--color-deep);
+      border-left: 3px solid var(--color-agua);
+      padding-left: var(--space-5);
+      margin: var(--space-6) 0;
+    }
+
+    .about-chips {
+      display: flex; flex-wrap: wrap; gap: var(--space-3);
+      margin-top: var(--space-6);
+    }
+    .about-chip {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-wide);
+      color: var(--color-deep);
+      background: rgba(13, 59, 78, 0.09);
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-4);
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-photo {
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+    }
+    .about-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .about-photo::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, rgba(13, 59, 78, 0.42) 100%);
+    }
+    .about-badge {
+      position: absolute;
+      bottom: var(--space-5); left: var(--space-5);
+      background: var(--color-arena);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-5);
+      box-shadow: var(--shadow-lg);
+      z-index: 1;
+    }
+    .about-badge-label {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: var(--color-agua);
+    }
+    .about-badge-value {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--color-deep);
+      display: block;
+      margin-top: var(--space-1);
+    }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    #galeria { background: var(--color-white); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+    }
+    @media (min-width: 560px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 260px 260px 260px;
+        grid-auto-rows: 260px;
+      }
+      .gallery-item--large { grid-column: span 2; grid-row: span 2; }
+      .gallery-item--wide  { grid-column: span 2; }
+      .gallery-item--half  { grid-column: span 2; }
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: var(--color-foam);
+      aspect-ratio: 4/3;
+    }
+    @media (min-width: 900px) { .gallery-item { aspect-ratio: unset; } }
+
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13, 59, 78, 0.62) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+      display: flex; align-items: flex-end;
+      padding: var(--space-4);
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-overlay span {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-white);
+      font-weight: var(--weight-medium);
+    }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    #testimonios { background: var(--color-foam); }
+
+    .testimonials-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 4.5vw, var(--text-4xl));
+      color: var(--color-deep);
+      line-height: var(--leading-snug);
+      margin-bottom: var(--space-3);
+    }
+    .testimonials-head p {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-light);
+      color: var(--color-roca);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      margin-top: var(--space-8);
+    }
+    @media (min-width: 700px) {
+      .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .testimonial-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex; flex-direction: column; gap: var(--space-5);
+      box-shadow: 0 2px 12px rgba(13, 59, 78, 0.07);
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(13, 59, 78, 0.11);
+    }
+
+    .testimonial-stars {
+      display: flex; gap: 3px;
+      font-size: var(--text-lg);
+      color: #D4A017;
+      line-height: 1;
+    }
+
+    .testimonial-body {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--text-xl);
+      color: var(--color-deep);
+      line-height: var(--leading-snug);
+      flex-grow: 1;
+    }
+
+    .testimonial-author {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border);
+    }
+    .testimonial-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--color-foam);
+    }
+    .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .testimonial-name {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      font-weight: var(--weight-medium);
+      color: var(--color-deep);
+      line-height: 1.3;
+    }
+    .testimonial-origin {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-roca);
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contacto {
+      background: var(--color-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    #contacto::before {
+      content: '';
+      position: absolute;
+      bottom: -25%; left: -8%;
+      width: 620px; height: 620px;
+      background: radial-gradient(ellipse, rgba(42, 143, 160, 0.1) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .contact-inner {
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .contact-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-3xl), 5.5vw, var(--text-5xl));
+      color: var(--color-white);
+      line-height: var(--leading-snug);
+      margin-bottom: var(--space-4);
+    }
+    .contact-inner h2 em {
+      font-style: italic;
+      color: var(--color-foam);
+    }
+    .contact-inner > p {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-light);
+      color: rgba(194, 230, 236, 0.72);
+      max-width: 460px;
+      margin: 0 auto var(--space-7);
+      line-height: var(--leading-loose);
+    }
+
+    .contact-actions {
+      display: flex; flex-wrap: wrap; gap: var(--space-4);
+      justify-content: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .contact-divider {
+      border: none;
+      border-top: 1px solid rgba(250, 252, 252, 0.08);
+      margin-bottom: var(--space-7);
+    }
+
+    .contact-details {
+      display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-7);
+      justify-content: center;
+      margin-bottom: var(--space-6);
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .contact-detail-icon {
+      width: 20px; height: 20px;
+      color: var(--color-agua);
+      flex-shrink: 0;
+    }
+    .contact-detail span {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: rgba(194, 230, 236, 0.8);
+    }
+
+    .social-links {
+      display: flex; gap: var(--space-4);
+      justify-content: center;
+    }
+    .social-link {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(250, 252, 252, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+    .social-link:hover {
+      background: rgba(42, 143, 160, 0.2);
+      border-color: var(--color-agua);
+      transform: translateY(-2px);
+    }
+    .social-link svg { width: 20px; height: 20px; fill: rgba(194, 230, 236, 0.75); }
+    .social-link:hover svg { fill: var(--color-foam); }
+    .social-link:focus-visible { outline: 3px solid var(--color-agua); outline-offset: 3px; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: #081e2a;
+      padding: var(--space-6) 0;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column; align-items: center; gap: var(--space-4);
+      text-align: center;
+    }
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+    .footer-logo img { height: 38px; width: auto; }
+    .footer-copy {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: rgba(194, 230, 236, 0.35);
+      line-height: var(--leading-relaxed);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav id="main-nav" aria-label="Navegación principal">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo" aria-label="La Palapa Cabo Pulmo — inicio">
+          <img src="./brand_assets/logo-white.svg" alt="La Palapa Cabo Pulmo">
+        </a>
+
+        <!-- Desktop links -->
+        <ul class="nav-links" role="list">
+          <!-- EDITABLE: nav links — add/remove as needed -->
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#paquetes">Paquetes</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+
+        <!-- Desktop CTA -->
+        <!-- EDITABLE: nav CTA phone number (WhatsApp) -->
+        <a href="https://wa.me/526241234567" class="btn btn-coral nav-cta" target="_blank" rel="noopener">
+          Reservar
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button class="nav-hamburger" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-mobile">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="nav-mobile" class="nav-mobile-menu" role="navigation" aria-label="Menú móvil">
+      <!-- EDITABLE: mobile nav links — keep in sync with desktop links above -->
+      <a href="#servicios">Servicios</a>
+      <a href="#paquetes">Paquetes</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+      <!-- EDITABLE: mobile CTA -->
+      <a href="https://wa.me/526241234567" class="btn btn-coral" style="width:100%;justify-content:center;margin-top:var(--space-3)" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO
+       INSTRUCTIONS: Replace the placeholder div inside .hero-media
+       with a <video> element pointing to your real footage.
+       Recommended: drone shot of the reef from above at dawn,
+       or underwater wide-angle of the coral garden.
+       Format: MP4 + WebM, autoplay muted loop playsinline.
+  ============================================================ -->
+  <section id="hero">
+    <div class="hero-media">
+      <!-- VIDEO PLACEHOLDER — remove this div and add the <video> tag below when ready -->
+      <div class="hero-media-placeholder" aria-hidden="true">
+        <!-- EDITABLE: placeholder background color — matches brand deep until video is ready -->
+      </div>
+
+      <!-- EDITABLE: Replace the div above with this block when video is ready:
+      <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="./assets/video/hero-reef.webm" type="video/webm">
+        <source src="./assets/video/hero-reef.mp4"  type="video/mp4">
+      </video>
+      -->
+    </div>
+
+    <!-- Dark gradient overlay -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Signature: bathymetric depth contour SVG -->
+    <div class="hero-bathy" aria-hidden="true">
+      <svg viewBox="0 0 540 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Concentric organic contour lines echoing nautical depth charts -->
+        <path d="M540,240 C540,150 490,80 400,50 C310,20 200,40 140,100 C80,160 60,240 80,310 C100,380 160,440 260,460 C360,480 460,440 510,380 C540,340 540,280 540,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M540,240 C530,160 475,95 390,68 C305,40 195,58 135,115 C75,172 58,250 76,316 C94,382 152,438 248,456 C344,474 442,436 494,378 C525,342 535,282 540,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M500,240 C498,168 450,105 370,80 C290,55 190,72 132,128 C74,184 60,258 76,320 C92,382 148,430 238,448 C328,466 424,430 476,374 C506,340 500,282 500,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M460,240 C458,172 415,115 340,94 C265,72 170,88 118,140 C66,192 56,262 72,320 C88,378 140,422 226,438 C312,454 402,420 452,366 C480,334 460,278 460,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M420,240 C418,176 380,124 310,106 C240,88 150,104 104,152 C58,200 52,266 68,320 C84,374 132,414 214,428 C296,442 380,410 428,358 C454,328 420,274 420,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M380,240 C378,180 344,134 280,118 C216,102 130,118 90,162 C50,206 48,268 64,318 C80,368 124,404 202,416 C280,428 358,398 402,348 C426,320 380,270 380,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M340,240 C338,184 308,142 250,128 C192,114 112,130 76,170 C40,210 42,268 58,314 C74,360 114,394 188,404 C262,414 334,386 374,338 C396,312 340,266 340,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M300,240 C298,188 272,150 220,138 C168,126 94,142 62,178 C30,214 36,268 52,310 C68,352 104,382 174,390 C244,398 310,372 346,326 C366,302 300,262 300,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <path d="M260,240 C258,194 236,160 190,150 C144,140 78,154 50,186 C22,218 30,266 46,304 C62,342 94,368 160,374 C226,380 286,356 318,312 C336,290 260,258 260,240 Z" stroke="#C2E6EC" stroke-width="1"/>
+        <!-- Depth label marks — like real nautical charts -->
+        <text x="420" y="180" font-family="monospace" font-size="9" fill="#C2E6EC" opacity="0.6">−18m</text>
+        <text x="360" y="200" font-family="monospace" font-size="9" fill="#C2E6EC" opacity="0.5">−15m</text>
+        <text x="300" y="220" font-family="monospace" font-size="9" fill="#C2E6EC" opacity="0.45">−12m</text>
+        <text x="245" y="244" font-family="monospace" font-size="9" fill="#C2E6EC" opacity="0.4">−8m</text>
+        <text x="200" y="262" font-family="monospace" font-size="9" fill="#C2E6EC" opacity="0.35">−4m</text>
+      </svg>
+    </div>
+
+    <!-- Subtle light caustics -->
+    <div class="hero-caustics" aria-hidden="true"></div>
+
+    <!-- Video placeholder instruction box (remove when real video is set) -->
+    <div class="hero-video-note" aria-hidden="true">
+      <!-- EDITABLE: remove this entire block once the video is placed -->
+      <p>
+        <strong>📹 Aquí va el video de fondo</strong>
+        Recomendado: drone sobre el arrecife al amanecer, o toma submarina del coral a 5–8 metros de profundidad. Formato: MP4 + WebM, 1920×1080 mínimo, autoplay muted loop.
+      </p>
+    </div>
+
+    <!-- Hero text -->
+    <div class="container">
+      <div class="hero-content">
+        <!-- EDITABLE: hero eyebrow -->
+        <span class="hero-eyebrow">Reserva de la Biósfera · Cabo Pulmo, BCS</span>
+
+        <!-- EDITABLE: hero headline -->
+        <h1 class="hero-title">
+          El arrecife<br>
+          más antiguo<br>
+          <em>del Pacífico.</em>
+        </h1>
+
+        <!-- EDITABLE: hero tagline -->
+        <p class="hero-tagline">
+          Traslados, snorkel y buceo guiados por alguien que creció junto a este arrecife. No es un tour. Es el lugar donde vivimos.
+        </p>
+
+        <div class="hero-actions">
+          <!-- EDITABLE: CTA phone number (WhatsApp) -->
+          <a href="https://wa.me/526241234567" class="btn btn-coral" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Reservar salida
+          </a>
+          <a href="#servicios" class="btn btn-ghost-light">
+            Ver servicios
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Wave divider: hero (dark) → servicios (white) -->
+  <div class="wave-sep" aria-hidden="true">
+    <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 C240,64 480,32 720,48 C960,64 1200,20 1440,40 L1440,64 L0,64 Z" fill="#FAFCFC"/>
+    </svg>
+  </div>
+
+
+  <!-- ============================================================
+       SERVICIOS
+  ============================================================ -->
+  <section id="servicios" class="section-pad">
+    <div class="container">
+      <div class="section-head reveal">
+        <!-- EDITABLE: services section eyebrow -->
+        <span class="eyebrow">Lo que hacemos</span>
+        <!-- EDITABLE: services section headline -->
+        <h2>Tres maneras<br>de conocer el arrecife</h2>
+        <!-- EDITABLE: services section subtext -->
+        <p>Operamos salidas pequeñas, nunca grupos masivos. Cada experiencia sale desde la playa de Cabo Pulmo.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Service 1: Traslados -->
+        <div class="service-card reveal reveal-d1">
+          <div class="service-icon" aria-hidden="true">
+            <!-- Transfer / SUV icon -->
+            <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 11L5.5 5H22.5L25 11M3 11H25M3 11V20H5M25 11V20H23M5 20V22H9V20M19 20V22H23V20M5 20H23" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="8" cy="20.5" r="1.5" fill="currentColor"/>
+              <circle cx="20" cy="20.5" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <!-- EDITABLE: service 1 title -->
+          <h3>Traslados</h3>
+          <!-- EDITABLE: service 1 description -->
+          <p>
+            Llegada y salida desde Los Barriles, La Ribera o San José del Cabo. Camioneta cómoda, tiempos flexibles y alguien que conoce cada curva del camino.
+          </p>
+          <a href="#contacto" class="service-link">
+            Consultar disponibilidad
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </a>
+        </div>
+
+        <!-- Service 2: Snorkel -->
+        <div class="service-card reveal reveal-d2">
+          <div class="service-icon" aria-hidden="true">
+            <!-- Snorkel mask icon -->
+            <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 10 C4 7 6 5 10 5 L18 5 C22 5 24 7 24 10 L24 13 C24 16 22 18 18 18 L10 18 C6 18 4 16 4 13 Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M14 18 L14 22 C14 23 15 24 16 24 L20 24 C22 24 24 22 24 20 L24 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <ellipse cx="14" cy="11.5" rx="5" ry="4" stroke="currentColor" stroke-width="1.4" fill="none" opacity="0.5"/>
+            </svg>
+          </div>
+          <!-- EDITABLE: service 2 title -->
+          <h3>Snorkel</h3>
+          <!-- EDITABLE: service 2 description -->
+          <p>
+            Equipo completo incluido. Salidas en panga hacia los puntos más vivos del arrecife: El Cantil, Los Morros y La Sirena. Ideal para todas las edades.
+          </p>
+          <a href="#contacto" class="service-link">
+            Consultar disponibilidad
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </a>
+        </div>
+
+        <!-- Service 3: Buceo -->
+        <div class="service-card reveal reveal-d3">
+          <div class="service-icon" aria-hidden="true">
+            <!-- Scuba diver icon -->
+            <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="6" r="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
+              <path d="M10 6 C6 6 4 9 4 13 C4 17 7 20 11 21 L14 22 L17 21 C21 20 24 17 24 13 C24 9 22 6 18 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+              <path d="M11 21 L10 26 M17 21 L18 26" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <rect x="20" y="8" width="5" height="8" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/>
+            </svg>
+          </div>
+          <!-- EDITABLE: service 3 title -->
+          <h3>Buceo</h3>
+          <!-- EDITABLE: service 3 description -->
+          <p>
+            Inmersiones guiadas en uno de los arrecifes de coral más ricos del Pacífico mexicano. Certificados PADI o con experiencia previa. Visibilidad típica: 10–20 m.
+          </p>
+          <a href="#contacto" class="service-link">
+            Consultar disponibilidad
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Wave divider: servicios (white) → paquetes (dark) -->
+  <div class="wave-sep" aria-hidden="true" style="background:var(--color-white)">
+    <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C360,0 720,64 1080,32 C1260,16 1380,48 1440,56 L1440,64 L0,64 Z" fill="#0D3B4E"/>
+    </svg>
+  </div>
+
+
+  <!-- ============================================================
+       PAQUETES
+  ============================================================ -->
+  <section id="paquetes" class="section-pad" style="padding-top:var(--space-8)">
+    <div class="container">
+      <div class="packages-head reveal">
+        <!-- EDITABLE: packages section eyebrow -->
+        <span class="eyebrow eyebrow--light">Combina los servicios</span>
+        <!-- EDITABLE: packages headline -->
+        <h2>Una experiencia completa<br>o la que tú necesites</h2>
+        <!-- EDITABLE: packages subtext -->
+        <p>Armamos la salida según tu grupo, tus tiempos y tu nivel. Sin paquetes rígidos — conversamos y ajustamos.</p>
+      </div>
+
+      <div class="packages-grid">
+
+        <!-- Package 1 -->
+        <div class="pkg-card reveal reveal-d1">
+          <!-- EDITABLE: package 1 badge (optional, remove if not needed) -->
+          <span class="pkg-badge">Para empezar</span>
+          <!-- EDITABLE: package 1 name -->
+          <h3>Media jornada</h3>
+          <!-- EDITABLE: package 1 description -->
+          <p>La opción perfecta para un primer encuentro con el arrecife o cuando el tiempo es corto.</p>
+          <ul class="pkg-includes">
+            <!-- EDITABLE: package 1 includes list -->
+            <li>Traslado desde tu hospedaje</li>
+            <li>Snorkel guiado (1.5 h en el agua)</li>
+            <li>Equipo completo incluido</li>
+            <li>Fruta y agua a bordo</li>
+          </ul>
+          <!-- EDITABLE: package 1 duration -->
+          <p class="pkg-duration">Duración aprox. 4 horas</p>
+        </div>
+
+        <!-- Package 2 (featured) -->
+        <div class="pkg-card pkg-featured reveal reveal-d2">
+          <!-- EDITABLE: package 2 badge -->
+          <span class="pkg-badge">Más popular</span>
+          <!-- EDITABLE: package 2 name -->
+          <h3>Día completo</h3>
+          <!-- EDITABLE: package 2 description -->
+          <p>La experiencia completa: llegas con calma, exploras el arrecife en superficie y en profundidad, y regresas al atardecer.</p>
+          <ul class="pkg-includes">
+            <!-- EDITABLE: package 2 includes list -->
+            <li>Traslado redondo</li>
+            <li>Snorkel guiado (2 h)</li>
+            <li>2 inmersiones de buceo</li>
+            <li>Almuerzo en la palapa</li>
+            <li>Todo el equipo</li>
+          </ul>
+          <!-- EDITABLE: package 2 duration -->
+          <p class="pkg-duration">Duración aprox. 8 horas</p>
+        </div>
+
+        <!-- Package 3 -->
+        <div class="pkg-card reveal reveal-d3">
+          <!-- EDITABLE: package 3 badge -->
+          <span class="pkg-badge">Para buzos</span>
+          <!-- EDITABLE: package 3 name -->
+          <h3>Tarde de buceo</h3>
+          <!-- EDITABLE: package 3 description -->
+          <p>Dos inmersiones en los mejores puntos del arrecife, con tiempo entre salidas para descansar en la playa.</p>
+          <ul class="pkg-includes">
+            <!-- EDITABLE: package 3 includes list -->
+            <li>Traslado redondo</li>
+            <li>2 inmersiones guiadas</li>
+            <li>Tanque 12 L + regulador</li>
+            <li>Botana entre inmersiones</li>
+          </ul>
+          <!-- EDITABLE: package 3 duration -->
+          <p class="pkg-duration">Duración aprox. 5 horas</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Wave divider: paquetes (dark) → nosotros (arena) -->
+  <div class="wave-sep" aria-hidden="true" style="background:var(--color-deep)">
+    <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C300,64 600,10 900,40 C1100,60 1300,20 1440,36 L1440,64 L0,64 Z" fill="#E8D5B0"/>
+    </svg>
+  </div>
+
+
+  <!-- ============================================================
+       NOSOTROS
+  ============================================================ -->
+  <section id="nosotros" class="section-pad" style="padding-top:var(--space-8)">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-text reveal">
+          <!-- EDITABLE: about eyebrow -->
+          <span class="eyebrow">Quiénes somos</span>
+          <!-- EDITABLE: about headline -->
+          <h2>Nacidos en<br><em>Cabo Pulmo.</em></h2>
+          <!-- EDITABLE: about paragraph 1 -->
+          <p>
+            La Palapa no es una agencia. Es la familia que lleva generaciones viviendo junto al arrecife. Lo que ofrecemos no sale de un catálogo — sale de conocer este lugar en todas sus temporadas, sus corrientes, sus criaturas y sus días difíciles.
+          </p>
+          <!-- EDITABLE: about pull quote -->
+          <blockquote class="about-pull">
+            "Este arrecife no es un producto. Es mi casa. Y si te lo muestro, es porque sé que lo vas a cuidar igual que yo."
+          </blockquote>
+          <!-- EDITABLE: about paragraph 2 -->
+          <p>
+            Operamos con grupos pequeños porque creemos que el arrecife merece visitantes que puedan escucharlo, no multitudes que lo ignoren. Cada salida es también un acto de conservación.
+          </p>
+
+          <!-- EDITABLE: conservation chips — add/remove as appropriate -->
+          <div class="about-chips">
+            <span class="about-chip">Reserva de la Biósfera</span>
+            <span class="about-chip">Grupos máx. 8 personas</span>
+            <span class="about-chip">Operador local</span>
+            <span class="about-chip">Sin anclas sobre el coral</span>
+          </div>
+        </div>
+
+        <div class="about-visual reveal reveal-d2">
+          <div class="about-photo">
+            <!--
+              EDITABLE: Replace this placeholder with a real photo.
+              Ideal: retrato del guía en la playa de Cabo Pulmo con el arrecife al fondo,
+              luz de tarde, formato vertical (4:5).
+            -->
+            <img
+              src="https://placehold.co/600x750/0D3B4E/2A8FA0?text=Foto%3A+Guía+en+la+playa"
+              alt="Guía local de La Palapa Cabo Pulmo en la playa"
+              data-replace="Retrato del guía principal en la orilla de Cabo Pulmo, atardecer, formato vertical"
+            >
+          </div>
+          <!-- EDITABLE: about badge — key stat or certification -->
+          <div class="about-badge">
+            <span class="about-badge-label">Arrecife más septentrional</span>
+            <strong class="about-badge-value">del Pacífico</strong>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Wave divider: nosotros (arena) → galeria (white) -->
+  <div class="wave-sep" aria-hidden="true" style="background:var(--color-arena)">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,20 C480,56 960,0 1440,28 L1440,56 L0,56 Z" fill="#FAFCFC"/>
+    </svg>
+  </div>
+
+
+  <!-- ============================================================
+       GALERÍA
+  ============================================================ -->
+  <section id="galeria" class="section-pad" style="padding-top:var(--space-8)">
+    <div class="container">
+      <div class="section-head reveal">
+        <!-- EDITABLE: gallery eyebrow -->
+        <span class="eyebrow">El arrecife en imágenes</span>
+        <!-- EDITABLE: gallery headline -->
+        <h2>Ver para creer,<br>bucear para entender</h2>
+      </div>
+
+      <div class="gallery-grid">
+
+        <!-- Gallery item 1 — large (spans 2x2 on desktop) -->
+        <div class="gallery-item gallery-item--large reveal">
+          <!--
+            EDITABLE: foto principal de galería
+            Ideal: buzo a media agua con cardumen de jureles o manta raya de fondo.
+            Formato horizontal grande, alta resolución.
+          -->
+          <img
+            src="https://placehold.co/800x640/0D3B4E/2A8FA0?text=Foto+principal"
+            alt="Buzo en el arrecife de Cabo Pulmo"
+            data-replace="Buzo con tortuga marina en el arrecife de coral — foto principal de galería"
+          >
+          <div class="gallery-item-overlay">
+            <!-- EDITABLE: gallery item 1 caption -->
+            <span>El arrecife a 12 metros</span>
+          </div>
+        </div>
+
+        <!-- Gallery item 2 -->
+        <div class="gallery-item reveal reveal-d1">
+          <!--
+            EDITABLE: foto 2 de galería
+            Ideal: vista submarina del coral desde la superficie — snorkelistas visibles arriba.
+          -->
+          <img
+            src="https://placehold.co/400x360/1a5a70/C2E6EC?text=Vista+submarina"
+            alt="Vista submarina del arrecife"
+            data-replace="Vista submarina del arrecife de coral desde la superficie, luz natural filtrándose"
+          >
+          <div class="gallery-item-overlay">
+            <!-- EDITABLE: gallery item 2 caption -->
+            <span>Coral cuerno de alce</span>
+          </div>
+        </div>
+
+        <!-- Gallery item 3 -->
+        <div class="gallery-item reveal reveal-d2">
+          <!--
+            EDITABLE: foto 3 de galería
+            Ideal: grupo de snorkelistas en el agua, vista desde panga, día despejado.
+          -->
+          <img
+            src="https://placehold.co/400x360/2A8FA0/FAFCFC?text=Snorkel"
+            alt="Snorkelistas en Cabo Pulmo"
+            data-replace="Grupo de snorkelistas en aguas turquesas, vista desde la panga, día soleado"
+          >
+          <div class="gallery-item-overlay">
+            <!-- EDITABLE: gallery item 3 caption -->
+            <span>Snorkel en Los Morros</span>
+          </div>
+        </div>
+
+        <!-- Gallery item 4 — wide (spans 2 cols on desktop) -->
+        <div class="gallery-item gallery-item--wide reveal reveal-d1">
+          <!--
+            EDITABLE: foto 4 de galería
+            Ideal: cardumen denso de jureles o peces de plata — toma submarina horizontal.
+          -->
+          <img
+            src="https://placehold.co/800x360/0D3B4E/C2E6EC?text=Cardumen"
+            alt="Cardumen de jureles en Cabo Pulmo"
+            data-replace="Cardumen masivo de jureles en aguas abiertas — toma submarina horizontal"
+          >
+          <div class="gallery-item-overlay">
+            <!-- EDITABLE: gallery item 4 caption -->
+            <span>Cardumen frente a La Punta</span>
+          </div>
+        </div>
+
+        <!-- Gallery item 5 -->
+        <div class="gallery-item gallery-item--half reveal reveal-d2">
+          <!--
+            EDITABLE: foto 5 de galería
+            Ideal: panga en la orilla al atardecer, colores cálidos, perfil de la costa.
+          -->
+          <img
+            src="https://placehold.co/400x360/D4614A/FAFCFC?text=Atardecer"
+            alt="Panga en la playa al atardecer"
+            data-replace="Panga local varada en la orilla de Cabo Pulmo al atardecer, cielos en coral y naranja"
+          >
+          <div class="gallery-item-overlay">
+            <!-- EDITABLE: gallery item 5 caption -->
+            <span>Al final del día</span>
+          </div>
+        </div>
+
+        <!-- Gallery item 6 -->
+        <div class="gallery-item gallery-item--half reveal reveal-d3">
+          <!--
+            EDITABLE: foto 6 de galería
+            Ideal: tortuga marina nadando cerca del arrecife, luz natural desde arriba.
+          -->
+          <img
+            src="https://placehold.co/400x360/5C6B6E/FAFCFC?text=Tortuga"
+            alt="Tortuga marina en el arrecife"
+            data-replace="Tortuga marina nadando sobre el coral, luz solar natural filtrada desde la superficie"
+          >
+          <div class="gallery-item-overlay">
+            <!-- EDITABLE: gallery item 6 caption -->
+            <span>Tortuga prieta</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Wave divider: galeria (white) → testimonios (foam) -->
+  <div class="wave-sep" aria-hidden="true" style="background:var(--color-white)">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,28 C360,0 720,56 1080,28 C1260,14 1380,44 1440,40 L1440,56 L0,56 Z" fill="#C2E6EC"/>
+    </svg>
+  </div>
+
+
+  <!-- ============================================================
+       TESTIMONIOS
+  ============================================================ -->
+  <section id="testimonios" class="section-pad">
+    <div class="container">
+      <div class="testimonials-head reveal">
+        <!-- EDITABLE: testimonials eyebrow -->
+        <span class="eyebrow">Lo que dice la gente</span>
+        <!-- EDITABLE: testimonials headline -->
+        <h2>Cada salida<br>tiene su historia</h2>
+        <!-- EDITABLE: testimonials subtext -->
+        <p>Reseñas de quienes estuvieron aquí y quisieron compartirlo.</p>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card reveal reveal-d1">
+          <div class="testimonial-stars" aria-label="5 de 5 estrellas">
+            ★★★★★
+          </div>
+          <!-- EDITABLE: testimonial 1 quote -->
+          <p class="testimonial-body">
+            "Llevamos cuatro días en BCS y esto fue lo que más nos marcó. El guía conoce el arrecife como su patio — nos llevó exactamente donde estaban los jureles."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <!--
+                EDITABLE: testimonial 1 avatar photo
+              -->
+              <img
+                src="https://placehold.co/84x84/E8D5B0/0D3B4E?text=A"
+                alt="Foto de Alejandra M."
+                data-replace="Foto de perfil del cliente — Alejandra M."
+              >
+            </div>
+            <div>
+              <!-- EDITABLE: testimonial 1 name and origin -->
+              <p class="testimonial-name">Alejandra M.</p>
+              <p class="testimonial-origin">CDMX · Diciembre 2024</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card reveal reveal-d2">
+          <div class="testimonial-stars" aria-label="5 de 5 estrellas">
+            ★★★★★
+          </div>
+          <!-- EDITABLE: testimonial 2 quote -->
+          <p class="testimonial-body">
+            "We've dived in Belize, Thailand, and the Philippines — Cabo Pulmo holds its own. Small group, zero crowding, and a guide who genuinely cares about the reef."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <!--
+                EDITABLE: testimonial 2 avatar photo
+              -->
+              <img
+                src="https://placehold.co/84x84/C2E6EC/0D3B4E?text=R"
+                alt="Photo of Ryan &amp; Claire T."
+                data-replace="Foto de perfil del cliente — Ryan & Claire T."
+              >
+            </div>
+            <div>
+              <!-- EDITABLE: testimonial 2 name and origin -->
+              <p class="testimonial-name">Ryan &amp; Claire T.</p>
+              <p class="testimonial-origin">San Diego, CA · March 2025</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card reveal reveal-d3">
+          <div class="testimonial-stars" aria-label="5 de 5 estrellas">
+            ★★★★★
+          </div>
+          <!-- EDITABLE: testimonial 3 quote -->
+          <p class="testimonial-body">
+            "Llevé a mis hijos de 9 y 12 años a snorkelear. Nunca había visto algo así — la tortuga pasó a menos de dos metros. El guía sabía exactamente dónde esperar."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <!--
+                EDITABLE: testimonial 3 avatar photo
+              -->
+              <img
+                src="https://placehold.co/84x84/0D3B4E/C2E6EC?text=J"
+                alt="Foto de Jorge P."
+                data-replace="Foto de perfil del cliente — Jorge P."
+              >
+            </div>
+            <div>
+              <!-- EDITABLE: testimonial 3 name and origin -->
+              <p class="testimonial-name">Jorge P.</p>
+              <p class="testimonial-origin">Guadalajara · Semana Santa 2025</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Wave divider: testimonios (foam) → contacto (dark) -->
+  <div class="wave-sep" aria-hidden="true" style="background:var(--color-foam)">
+    <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,48 C240,0 480,64 720,36 C960,8 1200,56 1440,32 L1440,64 L0,64 Z" fill="#0D3B4E"/>
+    </svg>
+  </div>
+
+
+  <!-- ============================================================
+       CONTACTO
+  ============================================================ -->
+  <section id="contacto" class="section-pad">
+    <div class="container">
+      <div class="contact-inner">
+        <!-- EDITABLE: contact eyebrow -->
+        <span class="eyebrow eyebrow--light">Hablemos</span>
+        <!-- EDITABLE: contact headline -->
+        <h2>¿Cuándo llegás<br><em>a Cabo Pulmo?</em></h2>
+        <!-- EDITABLE: contact subtext -->
+        <p>
+          Escríbenos por WhatsApp con tu fecha y el tamaño de tu grupo. Sin formularios. Sin esperas. Respuesta directa.
+        </p>
+
+        <div class="contact-actions">
+          <!-- EDITABLE: WhatsApp phone number and message -->
+          <a
+            href="https://wa.me/526241234567?text=Hola%2C%20me%20interesa%20reservar%20una%20salida%20en%20Cabo%20Pulmo"
+            class="btn btn-whatsapp"
+            target="_blank"
+            rel="noopener"
+            aria-label="Contactar por WhatsApp"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Escribir por WhatsApp
+          </a>
+          <!-- EDITABLE: email contact (optional — remove if not using email) -->
+          <a href="mailto:hola@lapalapacabopulmo.mx" class="btn btn-ghost-light">
+            hola@lapalapacabopulmo.mx
+          </a>
+        </div>
+
+        <hr class="contact-divider">
+
+        <!-- EDITABLE: contact details — location, hours, phone -->
+        <div class="contact-details">
+          <div class="contact-detail">
+            <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <!-- EDITABLE: location -->
+            <span>Cabo Pulmo, Los Cabos, BCS</span>
+          </div>
+          <div class="contact-detail">
+            <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <!-- EDITABLE: operating hours -->
+            <span>Salidas: 6:00 am – 2:00 pm</span>
+          </div>
+          <div class="contact-detail">
+            <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.57 4.36 2 2 0 0 1 3.54 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <!-- EDITABLE: phone number -->
+            <span>+52 624 123 4567</span>
+          </div>
+        </div>
+
+        <!-- EDITABLE: social media links — update hrefs and add/remove platforms -->
+        <div class="social-links">
+          <!-- Instagram -->
+          <a href="https://instagram.com/lapalapacabopulmo" class="social-link" target="_blank" rel="noopener" aria-label="Instagram de La Palapa Cabo Pulmo">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/lapalapacabopulmo" class="social-link" target="_blank" rel="noopener" aria-label="Facebook de La Palapa Cabo Pulmo">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <!-- TikTok -->
+          <a href="https://tiktok.com/@lapalapacabopulmo" class="social-link" target="_blank" rel="noopener" aria-label="TikTok de La Palapa Cabo Pulmo">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#hero" class="footer-logo" aria-label="La Palapa Cabo Pulmo — volver al inicio">
+          <img src="./brand_assets/logo-white.svg" alt="La Palapa Cabo Pulmo">
+        </a>
+        <!-- EDITABLE: footer legal text -->
+        <p class="footer-copy">
+          © 2025 La Palapa Cabo Pulmo · Cabo Pulmo, BCS, México<br>
+          Reserva de la Biósfera · Operador turístico local
+        </p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* -- Nav: scroll behavior -- */
+    const nav = document.getElementById('main-nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* -- Nav: mobile hamburger toggle -- */
+    const toggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('nav-mobile');
+    toggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    });
+    // Close on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menú');
+      });
+    });
+
+    /* -- Scroll-reveal observer -- */
+    const revealObserver = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>
