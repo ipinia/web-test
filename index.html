@@ -778,86 +778,92 @@
     }
 
     /* ============================================================
-       TESTIMONIALS
+       TESTIMONIALS — editorial, dark background
     ============================================================ */
-    #testimonios { background: var(--color-foam); }
+    #testimonios { background: var(--color-deep); }
 
     .testimonials-head h2 {
       font-family: var(--font-display);
       font-size: clamp(var(--text-3xl), 4.5vw, var(--text-4xl));
-      color: var(--color-deep);
+      color: var(--color-white);
       line-height: var(--leading-snug);
       margin-bottom: var(--space-3);
     }
     .testimonials-head p {
       font-size: var(--text-lg);
       font-weight: var(--weight-light);
-      color: var(--color-roca);
+      color: rgba(194, 230, 236, 0.6);
     }
 
     .testimonials-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-5);
-      margin-top: var(--space-8);
+      margin-top: var(--space-10);
+      border-top: 1px solid rgba(194, 230, 236, 0.1);
     }
     @media (min-width: 700px) {
       .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     .testimonial-card {
-      background: var(--color-white);
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
-      display: flex; flex-direction: column; gap: var(--space-5);
-      box-shadow: 0 2px 12px rgba(13, 59, 78, 0.07);
-      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      padding: var(--space-8) var(--space-2);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      border-bottom: 1px solid rgba(194, 230, 236, 0.1);
+      position: relative;
     }
-    .testimonial-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 32px rgba(13, 59, 78, 0.11);
+    @media (min-width: 700px) {
+      .testimonial-card {
+        border-bottom: none;
+        border-right: 1px solid rgba(194, 230, 236, 0.1);
+        padding: var(--space-8) var(--space-7) var(--space-8) var(--space-4);
+      }
+      .testimonial-card:last-child { border-right: none; }
     }
 
-    .testimonial-stars {
-      display: flex; gap: 3px;
-      font-size: var(--text-lg);
-      color: #D4A017;
-      line-height: 1;
+    /* Decorative open-quote mark */
+    .testimonial-card::before {
+      content: '\201C';
+      font-family: var(--font-display);
+      font-size: 72px;
+      line-height: 0.7;
+      color: var(--color-agua);
+      opacity: 0.4;
+      display: block;
     }
+
+    .testimonial-stars { display: none; }
+    .testimonial-avatar { display: none; }
 
     .testimonial-body {
       font-family: var(--font-display);
       font-style: italic;
       font-size: var(--text-xl);
-      color: var(--color-deep);
+      color: rgba(250, 252, 252, 0.9);
       line-height: var(--leading-snug);
       flex-grow: 1;
+      margin: 0;
     }
 
     .testimonial-author {
-      display: flex; align-items: center; gap: var(--space-3);
-      padding-top: var(--space-4);
-      border-top: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      padding-top: var(--space-5);
+      border-top: 1px solid rgba(194, 230, 236, 0.1);
     }
-    .testimonial-avatar {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
-      background: var(--color-foam);
-    }
-    .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .testimonial-name {
       font-family: var(--font-body);
       font-size: var(--text-base);
       font-weight: var(--weight-medium);
-      color: var(--color-deep);
+      color: var(--color-foam);
       line-height: 1.3;
     }
     .testimonial-origin {
       font-family: var(--font-body);
       font-size: var(--text-sm);
-      color: var(--color-roca);
+      color: rgba(194, 230, 236, 0.45);
     }
 
     /* ============================================================
@@ -1357,9 +1363,8 @@
             Formato horizontal grande, alta resolución.
           -->
           <img
-            src="https://placehold.co/800x640/0D3B4E/2A8FA0?text=Foto+principal"
+            src="https://images.pexels.com/photos/2408692/pexels-photo-2408692.jpeg?auto=compress&cs=tinysrgb&w=800&h=640&fit=crop"
             alt="Buzo en el arrecife de Cabo Pulmo"
-            data-replace="Buzo con tortuga marina en el arrecife de coral — foto principal de galería"
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 1 caption -->
@@ -1374,9 +1379,8 @@
             Ideal: vista submarina del coral desde la superficie — snorkelistas visibles arriba.
           -->
           <img
-            src="https://placehold.co/400x360/1a5a70/C2E6EC?text=Vista+submarina"
-            alt="Vista submarina del arrecife"
-            data-replace="Vista submarina del arrecife de coral desde la superficie, luz natural filtrándose"
+            src="https://images.pexels.com/photos/27874658/pexels-photo-27874658/free-photo-of-a-sea-anemone-on-a-coral-reef.jpeg?auto=compress&cs=tinysrgb&w=400&h=360&fit=crop"
+            alt="Coral del arrecife de Cabo Pulmo"
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 2 caption -->
@@ -1391,9 +1395,8 @@
             Ideal: grupo de snorkelistas en el agua, vista desde panga, día despejado.
           -->
           <img
-            src="https://placehold.co/400x360/2A8FA0/FAFCFC?text=Snorkel"
-            alt="Snorkelistas en Cabo Pulmo"
-            data-replace="Grupo de snorkelistas en aguas turquesas, vista desde la panga, día soleado"
+            src="https://images.pexels.com/photos/19391329/pexels-photo-19391329/free-photo-of-man-in-fins-and-shorts-swimming-towards-the-surface.jpeg?auto=compress&cs=tinysrgb&w=400&h=360&fit=crop"
+            alt="Snorkelista en Cabo Pulmo"
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 3 caption -->
@@ -1408,9 +1411,8 @@
             Ideal: cardumen denso de jureles o peces de plata — toma submarina horizontal.
           -->
           <img
-            src="https://placehold.co/800x360/0D3B4E/C2E6EC?text=Cardumen"
-            alt="Cardumen de jureles en Cabo Pulmo"
-            data-replace="Cardumen masivo de jureles en aguas abiertas — toma submarina horizontal"
+            src="https://images.pexels.com/photos/9903972/pexels-photo-9903972.jpeg?auto=compress&cs=tinysrgb&w=800&h=360&fit=crop"
+            alt="Cardumen de peces en Cabo Pulmo"
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 4 caption -->
@@ -1425,9 +1427,8 @@
             Ideal: panga en la orilla al atardecer, colores cálidos, perfil de la costa.
           -->
           <img
-            src="https://placehold.co/400x360/D4614A/FAFCFC?text=Atardecer"
-            alt="Panga en la playa al atardecer"
-            data-replace="Panga local varada en la orilla de Cabo Pulmo al atardecer, cielos en coral y naranja"
+            src="https://images.pexels.com/photos/4700871/pexels-photo-4700871.jpeg?auto=compress&cs=tinysrgb&w=400&h=360&fit=crop"
+            alt="Atardecer en Cabo Pulmo"
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 5 caption -->
@@ -1442,9 +1443,8 @@
             Ideal: tortuga marina nadando cerca del arrecife, luz natural desde arriba.
           -->
           <img
-            src="https://placehold.co/400x360/5C6B6E/FAFCFC?text=Tortuga"
-            alt="Tortuga marina en el arrecife"
-            data-replace="Tortuga marina nadando sobre el coral, luz solar natural filtrada desde la superficie"
+            src="https://images.pexels.com/photos/26764712/pexels-photo-26764712/free-photo-of-sea-turtle-swimming.jpeg?auto=compress&cs=tinysrgb&w=400&h=360&fit=crop"
+            alt="Tortuga marina en el arrecife de Cabo Pulmo"
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 6 caption -->
@@ -1457,10 +1457,10 @@
   </section>
 
 
-  <!-- Wave divider: galeria (white) → testimonios (foam) -->
+  <!-- Wave divider: galeria (white) → testimonios (deep) -->
   <div class="wave-sep" aria-hidden="true" style="background:var(--color-white)">
     <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,28 C360,0 720,56 1080,28 C1260,14 1380,44 1440,40 L1440,56 L0,56 Z" fill="#C2E6EC"/>
+      <path d="M0,28 C360,0 720,56 1080,28 C1260,14 1380,44 1440,40 L1440,56 L0,56 Z" fill="#0D3B4E"/>
     </svg>
   </div>
 
@@ -1570,8 +1570,8 @@
   </section>
 
 
-  <!-- Wave divider: testimonios (foam) → contacto (dark) -->
-  <div class="wave-sep" aria-hidden="true" style="background:var(--color-foam)">
+  <!-- Wave divider: testimonios (deep) → contacto (dark) -->
+  <div class="wave-sep" aria-hidden="true" style="background:var(--color-deep)">
     <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,48 C240,0 480,64 720,36 C960,8 1200,56 1440,32 L1440,64 L0,64 Z" fill="#0D3B4E"/>
     </svg>
