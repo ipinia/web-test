@@ -211,6 +211,42 @@
       transition: transform var(--transition-fast), opacity var(--transition-fast);
     }
 
+    /* Language toggle */
+    .nav-lang {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: var(--space-3);
+    }
+    .nav-lang--mobile {
+      margin-left: 0;
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid rgba(250,252,252,0.08);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-widest);
+      text-transform: uppercase;
+      color: rgba(250, 252, 252, 0.45);
+      cursor: pointer;
+      padding: 4px 2px;
+      transition: color var(--transition-fast);
+      line-height: 1;
+    }
+    .lang-btn:hover { color: var(--color-white); }
+    .lang-btn.active { color: var(--color-white); }
+    .lang-btn:focus-visible { outline: 2px solid var(--color-agua); outline-offset: 2px; border-radius: 2px; }
+    .lang-sep {
+      font-size: 10px;
+      color: rgba(250, 252, 252, 0.2);
+      user-select: none;
+    }
+
     /* Mobile menu open */
     .nav-mobile-menu {
       display: none;
@@ -1001,18 +1037,25 @@
         <!-- Desktop links -->
         <ul class="nav-links" role="list">
           <!-- EDITABLE: nav links — add/remove as needed -->
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#paquetes">Paquetes</a></li>
-          <li><a href="#nosotros">Nosotros</a></li>
-          <li><a href="#galeria">Galería</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#servicios" data-i18n="nav-servicios">Servicios</a></li>
+          <li><a href="#paquetes" data-i18n="nav-paquetes">Paquetes</a></li>
+          <li><a href="#nosotros" data-i18n="nav-nosotros">Nosotros</a></li>
+          <li><a href="#galeria" data-i18n="nav-galeria">Galería</a></li>
+          <li><a href="#contacto" data-i18n="nav-contacto">Contacto</a></li>
         </ul>
 
         <!-- Desktop CTA -->
         <!-- EDITABLE: nav CTA phone number (WhatsApp) -->
-        <a href="https://wa.me/526241234567" class="btn btn-coral nav-cta" target="_blank" rel="noopener">
+        <a href="https://wa.me/526241234567" class="btn btn-coral nav-cta" target="_blank" rel="noopener" data-i18n="nav-cta">
           Reservar
         </a>
+
+        <!-- Language toggle (desktop) -->
+        <div class="nav-lang">
+          <button class="lang-btn active" data-lang="es" onclick="setLang('es')">ES</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        </div>
 
         <!-- Mobile hamburger -->
         <button class="nav-hamburger" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-mobile">
@@ -1024,13 +1067,19 @@
     <!-- Mobile menu -->
     <div id="nav-mobile" class="nav-mobile-menu" role="navigation" aria-label="Menú móvil">
       <!-- EDITABLE: mobile nav links — keep in sync with desktop links above -->
-      <a href="#servicios">Servicios</a>
-      <a href="#paquetes">Paquetes</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#galeria">Galería</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#servicios" data-i18n="nav-servicios">Servicios</a>
+      <a href="#paquetes" data-i18n="nav-paquetes">Paquetes</a>
+      <a href="#nosotros" data-i18n="nav-nosotros">Nosotros</a>
+      <a href="#galeria" data-i18n="nav-galeria">Galería</a>
+      <a href="#contacto" data-i18n="nav-contacto">Contacto</a>
       <!-- EDITABLE: mobile CTA -->
-      <a href="https://wa.me/526241234567" class="btn btn-coral" style="width:100%;justify-content:center;margin-top:var(--space-3)" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+      <a href="https://wa.me/526241234567" class="btn btn-coral" style="width:100%;justify-content:center;margin-top:var(--space-3)" target="_blank" rel="noopener" data-i18n="nav-mobile-cta">Reservar por WhatsApp</a>
+      <!-- Language toggle (mobile) -->
+      <div class="nav-lang nav-lang--mobile">
+        <button class="lang-btn active" data-lang="es" onclick="setLang('es')">ES</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
     </div>
   </nav>
 
@@ -1082,17 +1131,17 @@
     <div class="container">
       <div class="hero-content">
         <!-- EDITABLE: hero eyebrow -->
-        <span class="hero-eyebrow">Reserva de la Biósfera · Cabo Pulmo, BCS</span>
+        <span class="hero-eyebrow" data-i18n="hero-eyebrow">Reserva de la Biósfera · Cabo Pulmo, BCS</span>
 
         <!-- EDITABLE: hero headline -->
-        <h1 class="hero-title">
+        <h1 class="hero-title" data-i18n="hero-title">
           El arrecife<br>
           más antiguo<br>
           <em>del Pacífico.</em>
         </h1>
 
         <!-- EDITABLE: hero tagline -->
-        <p class="hero-tagline">
+        <p class="hero-tagline" data-i18n="hero-tagline">
           Traslados, snorkel y buceo guiados por alguien que creció junto a este arrecife. No es un tour. Es el lugar donde vivimos.
         </p>
 
@@ -1100,9 +1149,9 @@
           <!-- EDITABLE: CTA phone number (WhatsApp) -->
           <a href="https://wa.me/526241234567" class="btn btn-coral" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            Reservar salida
+            <span data-i18n="hero-btn-book">Reservar salida</span>
           </a>
-          <a href="#servicios" class="btn btn-ghost-light">
+          <a href="#servicios" class="btn btn-ghost-light" data-i18n="hero-btn-svc">
             Ver servicios
           </a>
         </div>
@@ -1126,11 +1175,11 @@
     <div class="container">
       <div class="section-head reveal">
         <!-- EDITABLE: services section eyebrow -->
-        <span class="eyebrow">Lo que hacemos</span>
+        <span class="eyebrow" data-i18n="svc-eyebrow">Lo que hacemos</span>
         <!-- EDITABLE: services section headline -->
-        <h2>Tres maneras<br>de conocer el arrecife</h2>
+        <h2 data-i18n="svc-headline">Tres maneras<br>de conocer el arrecife</h2>
         <!-- EDITABLE: services section subtext -->
-        <p>Operamos salidas pequeñas, nunca grupos masivos. Cada experiencia sale desde la playa de Cabo Pulmo.</p>
+        <p data-i18n="svc-subtext">Operamos salidas pequeñas, nunca grupos masivos. Cada experiencia sale desde la playa de Cabo Pulmo.</p>
       </div>
 
       <div class="services-list">
@@ -1138,11 +1187,11 @@
         <!-- Service 1: Traslados -->
         <div class="service-row reveal">
           <span class="service-num">01</span>
-          <h3 class="service-name">Traslados</h3>
+          <h3 class="service-name" data-i18n="svc-1-name">Traslados</h3>
           <div class="service-detail">
-            <p>Llegada y salida desde Los Barriles, La Ribera o San José del Cabo. Camioneta cómoda, tiempos flexibles y alguien que conoce cada curva del camino.</p>
+            <p data-i18n="svc-1-desc">Llegada y salida desde Los Barriles, La Ribera o San José del Cabo. Camioneta cómoda, tiempos flexibles y alguien que conoce cada curva del camino.</p>
             <a href="#contacto" class="service-link">
-              Consultar disponibilidad
+              <span data-i18n="svc-1-link">Consultar disponibilidad</span>
               <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
             </a>
           </div>
@@ -1151,11 +1200,11 @@
         <!-- Service 2: Snorkel -->
         <div class="service-row reveal reveal-d1">
           <span class="service-num">02</span>
-          <h3 class="service-name">Snorkel</h3>
+          <h3 class="service-name" data-i18n="svc-2-name">Snorkel</h3>
           <div class="service-detail">
-            <p>Equipo completo incluido. Salidas en panga hacia los puntos más vivos del arrecife: El Cantil, Los Morros y La Sirena. Ideal para todas las edades.</p>
+            <p data-i18n="svc-2-desc">Equipo completo incluido. Salidas en panga hacia los puntos más vivos del arrecife: El Cantil, Los Morros y La Sirena. Ideal para todas las edades.</p>
             <a href="#contacto" class="service-link">
-              Consultar disponibilidad
+              <span data-i18n="svc-2-link">Consultar disponibilidad</span>
               <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
             </a>
           </div>
@@ -1164,11 +1213,11 @@
         <!-- Service 3: Buceo -->
         <div class="service-row reveal reveal-d2">
           <span class="service-num">03</span>
-          <h3 class="service-name">Buceo</h3>
+          <h3 class="service-name" data-i18n="svc-3-name">Buceo</h3>
           <div class="service-detail">
-            <p>Inmersiones guiadas en uno de los arrecifes de coral más ricos del Pacífico mexicano. Certificados PADI o con experiencia previa. Visibilidad típica: 10–20 m.</p>
+            <p data-i18n="svc-3-desc">Inmersiones guiadas en uno de los arrecifes de coral más ricos del Pacífico mexicano. Certificados PADI o con experiencia previa. Visibilidad típica: 10–20 m.</p>
             <a href="#contacto" class="service-link">
-              Consultar disponibilidad
+              <span data-i18n="svc-3-link">Consultar disponibilidad</span>
               <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
             </a>
           </div>
@@ -1194,11 +1243,11 @@
     <div class="container">
       <div class="packages-head reveal">
         <!-- EDITABLE: packages section eyebrow -->
-        <span class="eyebrow eyebrow--light">Combina los servicios</span>
+        <span class="eyebrow eyebrow--light" data-i18n="pkg-eyebrow">Combina los servicios</span>
         <!-- EDITABLE: packages headline -->
-        <h2>Una experiencia completa<br>o la que tú necesites</h2>
+        <h2 data-i18n="pkg-headline">Una experiencia completa<br>o la que tú necesites</h2>
         <!-- EDITABLE: packages subtext -->
-        <p>Armamos la salida según tu grupo, tus tiempos y tu nivel. Sin paquetes rígidos — conversamos y ajustamos.</p>
+        <p data-i18n="pkg-subtext">Armamos la salida según tu grupo, tus tiempos y tu nivel. Sin paquetes rígidos — conversamos y ajustamos.</p>
       </div>
 
       <div class="packages-grid">
@@ -1206,59 +1255,59 @@
         <!-- Package 1 -->
         <div class="pkg-card reveal reveal-d1">
           <!-- EDITABLE: package 1 badge (optional, remove if not needed) -->
-          <span class="pkg-badge">Para empezar</span>
+          <span class="pkg-badge" data-i18n="pkg-1-badge">Para empezar</span>
           <!-- EDITABLE: package 1 name -->
-          <h3>Media jornada</h3>
+          <h3 data-i18n="pkg-1-name">Media jornada</h3>
           <!-- EDITABLE: package 1 description -->
-          <p>La opción perfecta para un primer encuentro con el arrecife o cuando el tiempo es corto.</p>
+          <p data-i18n="pkg-1-desc">La opción perfecta para un primer encuentro con el arrecife o cuando el tiempo es corto.</p>
           <ul class="pkg-includes">
             <!-- EDITABLE: package 1 includes list -->
-            <li>Traslado desde tu hospedaje</li>
-            <li>Snorkel guiado (1.5 h en el agua)</li>
-            <li>Equipo completo incluido</li>
-            <li>Fruta y agua a bordo</li>
+            <li data-i18n="pkg-1-li-1">Traslado desde tu hospedaje</li>
+            <li data-i18n="pkg-1-li-2">Snorkel guiado (1.5 h en el agua)</li>
+            <li data-i18n="pkg-1-li-3">Equipo completo incluido</li>
+            <li data-i18n="pkg-1-li-4">Fruta y agua a bordo</li>
           </ul>
           <!-- EDITABLE: package 1 duration -->
-          <p class="pkg-duration">Duración aprox. 4 horas</p>
+          <p class="pkg-duration" data-i18n="pkg-1-dur">Duración aprox. 4 horas</p>
         </div>
 
         <!-- Package 2 (featured) -->
         <div class="pkg-card pkg-featured reveal reveal-d2">
           <!-- EDITABLE: package 2 badge -->
-          <span class="pkg-badge">Más popular</span>
+          <span class="pkg-badge" data-i18n="pkg-2-badge">Más popular</span>
           <!-- EDITABLE: package 2 name -->
-          <h3>Día completo</h3>
+          <h3 data-i18n="pkg-2-name">Día completo</h3>
           <!-- EDITABLE: package 2 description -->
-          <p>La experiencia completa: llegas con calma, exploras el arrecife en superficie y en profundidad, y regresas al atardecer.</p>
+          <p data-i18n="pkg-2-desc">La experiencia completa: llegas con calma, exploras el arrecife en superficie y en profundidad, y regresas al atardecer.</p>
           <ul class="pkg-includes">
             <!-- EDITABLE: package 2 includes list -->
-            <li>Traslado redondo</li>
-            <li>Snorkel guiado (2 h)</li>
-            <li>2 inmersiones de buceo</li>
-            <li>Almuerzo en la palapa</li>
-            <li>Todo el equipo</li>
+            <li data-i18n="pkg-2-li-1">Traslado redondo</li>
+            <li data-i18n="pkg-2-li-2">Snorkel guiado (2 h)</li>
+            <li data-i18n="pkg-2-li-3">2 inmersiones de buceo</li>
+            <li data-i18n="pkg-2-li-4">Almuerzo en la palapa</li>
+            <li data-i18n="pkg-2-li-5">Todo el equipo</li>
           </ul>
           <!-- EDITABLE: package 2 duration -->
-          <p class="pkg-duration">Duración aprox. 8 horas</p>
+          <p class="pkg-duration" data-i18n="pkg-2-dur">Duración aprox. 8 horas</p>
         </div>
 
         <!-- Package 3 -->
         <div class="pkg-card reveal reveal-d3">
           <!-- EDITABLE: package 3 badge -->
-          <span class="pkg-badge">Para buzos</span>
+          <span class="pkg-badge" data-i18n="pkg-3-badge">Para buzos</span>
           <!-- EDITABLE: package 3 name -->
-          <h3>Tarde de buceo</h3>
+          <h3 data-i18n="pkg-3-name">Tarde de buceo</h3>
           <!-- EDITABLE: package 3 description -->
-          <p>Dos inmersiones en los mejores puntos del arrecife, con tiempo entre salidas para descansar en la playa.</p>
+          <p data-i18n="pkg-3-desc">Dos inmersiones en los mejores puntos del arrecife, con tiempo entre salidas para descansar en la playa.</p>
           <ul class="pkg-includes">
             <!-- EDITABLE: package 3 includes list -->
-            <li>Traslado redondo</li>
-            <li>2 inmersiones guiadas</li>
-            <li>Tanque 12 L + regulador</li>
-            <li>Botana entre inmersiones</li>
+            <li data-i18n="pkg-3-li-1">Traslado redondo</li>
+            <li data-i18n="pkg-3-li-2">2 inmersiones guiadas</li>
+            <li data-i18n="pkg-3-li-3">Tanque 12 L + regulador</li>
+            <li data-i18n="pkg-3-li-4">Botana entre inmersiones</li>
           </ul>
           <!-- EDITABLE: package 3 duration -->
-          <p class="pkg-duration">Duración aprox. 5 horas</p>
+          <p class="pkg-duration" data-i18n="pkg-3-dur">Duración aprox. 5 horas</p>
         </div>
 
       </div>
@@ -1283,28 +1332,28 @@
 
         <div class="about-text reveal">
           <!-- EDITABLE: about eyebrow -->
-          <span class="eyebrow">Quiénes somos</span>
+          <span class="eyebrow" data-i18n="about-eyebrow">Quiénes somos</span>
           <!-- EDITABLE: about headline -->
-          <h2>Nacidos en<br><em>Cabo Pulmo.</em></h2>
+          <h2 data-i18n="about-headline">Nacidos en<br><em>Cabo Pulmo.</em></h2>
           <!-- EDITABLE: about paragraph 1 -->
-          <p>
+          <p data-i18n="about-p1">
             La Palapa no es una agencia. Es la familia que lleva generaciones viviendo junto al arrecife. Lo que ofrecemos no sale de un catálogo — sale de conocer este lugar en todas sus temporadas, sus corrientes, sus criaturas y sus días difíciles.
           </p>
           <!-- EDITABLE: about pull quote -->
-          <blockquote class="about-pull">
+          <blockquote class="about-pull" data-i18n="about-quote">
             "Este arrecife no es un producto. Es mi casa. Y si te lo muestro, es porque sé que lo vas a cuidar igual que yo."
           </blockquote>
           <!-- EDITABLE: about paragraph 2 -->
-          <p>
+          <p data-i18n="about-p2">
             Operamos con grupos pequeños porque creemos que el arrecife merece visitantes que puedan escucharlo, no multitudes que lo ignoren. Cada salida es también un acto de conservación.
           </p>
 
           <!-- EDITABLE: conservation chips — add/remove as appropriate -->
           <div class="about-chips">
-            <span class="about-chip">Reserva de la Biósfera</span>
-            <span class="about-chip">Grupos máx. 8 personas</span>
-            <span class="about-chip">Operador local</span>
-            <span class="about-chip">Sin anclas sobre el coral</span>
+            <span class="about-chip" data-i18n="about-chip-1">Reserva de la Biósfera</span>
+            <span class="about-chip" data-i18n="about-chip-2">Grupos máx. 8 personas</span>
+            <span class="about-chip" data-i18n="about-chip-3">Operador local</span>
+            <span class="about-chip" data-i18n="about-chip-4">Sin anclas sobre el coral</span>
           </div>
         </div>
 
@@ -1323,8 +1372,8 @@
           </div>
           <!-- EDITABLE: about badge — key stat or certification -->
           <div class="about-badge">
-            <span class="about-badge-label">Arrecife más septentrional</span>
-            <strong class="about-badge-value">del Pacífico</strong>
+            <span class="about-badge-label" data-i18n="about-badge-label">Arrecife más septentrional</span>
+            <strong class="about-badge-value" data-i18n="about-badge-value">del Pacífico</strong>
           </div>
         </div>
 
@@ -1348,9 +1397,9 @@
     <div class="container">
       <div class="section-head reveal">
         <!-- EDITABLE: gallery eyebrow -->
-        <span class="eyebrow">El arrecife en imágenes</span>
+        <span class="eyebrow" data-i18n="gallery-eyebrow">El arrecife en imágenes</span>
         <!-- EDITABLE: gallery headline -->
-        <h2>Ver para creer,<br>bucear para entender</h2>
+        <h2 data-i18n="gallery-headline">Ver para creer,<br>bucear para entender</h2>
       </div>
 
       <div class="gallery-grid">
@@ -1368,7 +1417,7 @@
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 1 caption -->
-            <span>El arrecife a 12 metros</span>
+            <span data-i18n="gallery-cap-1">El arrecife a 12 metros</span>
           </div>
         </div>
 
@@ -1384,7 +1433,7 @@
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 2 caption -->
-            <span>Coral cuerno de alce</span>
+            <span data-i18n="gallery-cap-2">Coral cuerno de alce</span>
           </div>
         </div>
 
@@ -1400,7 +1449,7 @@
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 3 caption -->
-            <span>Snorkel en Los Morros</span>
+            <span data-i18n="gallery-cap-3">Snorkel en Los Morros</span>
           </div>
         </div>
 
@@ -1416,7 +1465,7 @@
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 4 caption -->
-            <span>Cardumen frente a La Punta</span>
+            <span data-i18n="gallery-cap-4">Cardumen frente a La Punta</span>
           </div>
         </div>
 
@@ -1432,7 +1481,7 @@
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 5 caption -->
-            <span>Al final del día</span>
+            <span data-i18n="gallery-cap-5">Al final del día</span>
           </div>
         </div>
 
@@ -1448,7 +1497,7 @@
           >
           <div class="gallery-item-overlay">
             <!-- EDITABLE: gallery item 6 caption -->
-            <span>Tortuga prieta</span>
+            <span data-i18n="gallery-cap-6">Tortuga prieta</span>
           </div>
         </div>
 
@@ -1472,11 +1521,11 @@
     <div class="container">
       <div class="testimonials-head reveal">
         <!-- EDITABLE: testimonials eyebrow -->
-        <span class="eyebrow">Lo que dice la gente</span>
+        <span class="eyebrow" data-i18n="test-eyebrow">Lo que dice la gente</span>
         <!-- EDITABLE: testimonials headline -->
-        <h2>Cada salida<br>tiene su historia</h2>
+        <h2 data-i18n="test-headline">Cada salida<br>tiene su historia</h2>
         <!-- EDITABLE: testimonials subtext -->
-        <p>Reseñas de quienes estuvieron aquí y quisieron compartirlo.</p>
+        <p data-i18n="test-subtext">Reseñas de quienes estuvieron aquí y quisieron compartirlo.</p>
       </div>
 
       <div class="testimonials-grid">
@@ -1487,7 +1536,7 @@
             ★★★★★
           </div>
           <!-- EDITABLE: testimonial 1 quote -->
-          <p class="testimonial-body">
+          <p class="testimonial-body" data-i18n="test-1-body">
             "Llevamos cuatro días en BCS y esto fue lo que más nos marcó. El guía conoce el arrecife como su patio — nos llevó exactamente donde estaban los jureles."
           </p>
           <div class="testimonial-author">
@@ -1503,8 +1552,8 @@
             </div>
             <div>
               <!-- EDITABLE: testimonial 1 name and origin -->
-              <p class="testimonial-name">Alejandra M.</p>
-              <p class="testimonial-origin">CDMX · Diciembre 2024</p>
+              <p class="testimonial-name" data-i18n="test-1-name">Alejandra M.</p>
+              <p class="testimonial-origin" data-i18n="test-1-origin">CDMX · Diciembre 2024</p>
             </div>
           </div>
         </div>
@@ -1515,7 +1564,7 @@
             ★★★★★
           </div>
           <!-- EDITABLE: testimonial 2 quote -->
-          <p class="testimonial-body">
+          <p class="testimonial-body" data-i18n="test-2-body">
             "We've dived in Belize, Thailand, and the Philippines — Cabo Pulmo holds its own. Small group, zero crowding, and a guide who genuinely cares about the reef."
           </p>
           <div class="testimonial-author">
@@ -1531,8 +1580,8 @@
             </div>
             <div>
               <!-- EDITABLE: testimonial 2 name and origin -->
-              <p class="testimonial-name">Ryan &amp; Claire T.</p>
-              <p class="testimonial-origin">San Diego, CA · March 2025</p>
+              <p class="testimonial-name" data-i18n="test-2-name">Ryan &amp; Claire T.</p>
+              <p class="testimonial-origin" data-i18n="test-2-origin">San Diego, CA · March 2025</p>
             </div>
           </div>
         </div>
@@ -1543,7 +1592,7 @@
             ★★★★★
           </div>
           <!-- EDITABLE: testimonial 3 quote -->
-          <p class="testimonial-body">
+          <p class="testimonial-body" data-i18n="test-3-body">
             "Llevé a mis hijos de 9 y 12 años a snorkelear. Nunca había visto algo así — la tortuga pasó a menos de dos metros. El guía sabía exactamente dónde esperar."
           </p>
           <div class="testimonial-author">
@@ -1559,8 +1608,8 @@
             </div>
             <div>
               <!-- EDITABLE: testimonial 3 name and origin -->
-              <p class="testimonial-name">Jorge P.</p>
-              <p class="testimonial-origin">Guadalajara · Semana Santa 2025</p>
+              <p class="testimonial-name" data-i18n="test-3-name">Jorge P.</p>
+              <p class="testimonial-origin" data-i18n="test-3-origin">Guadalajara · Semana Santa 2025</p>
             </div>
           </div>
         </div>
@@ -1585,11 +1634,11 @@
     <div class="container">
       <div class="contact-inner">
         <!-- EDITABLE: contact eyebrow -->
-        <span class="eyebrow eyebrow--light">Hablemos</span>
+        <span class="eyebrow eyebrow--light" data-i18n="contact-eyebrow">Hablemos</span>
         <!-- EDITABLE: contact headline -->
-        <h2>¿Cuándo llegás<br><em>a Cabo Pulmo?</em></h2>
+        <h2 data-i18n="contact-headline">¿Cuándo llegás<br><em>a Cabo Pulmo?</em></h2>
         <!-- EDITABLE: contact subtext -->
-        <p>
+        <p data-i18n="contact-subtext">
           Escríbenos por WhatsApp con tu fecha y el tamaño de tu grupo. Sin formularios. Sin esperas. Respuesta directa.
         </p>
 
@@ -1603,7 +1652,7 @@
             aria-label="Contactar por WhatsApp"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            Escribir por WhatsApp
+            <span data-i18n="contact-wa-btn">Escribir por WhatsApp</span>
           </a>
           <!-- EDITABLE: email contact (optional — remove if not using email) -->
           <a href="mailto:hola@lapalapacabopulmo.mx" class="btn btn-ghost-light">
@@ -1627,7 +1676,7 @@
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
             </svg>
             <!-- EDITABLE: operating hours -->
-            <span>Salidas: 6:00 am – 2:00 pm</span>
+            <span data-i18n="contact-hours">Salidas: 6:00 am – 2:00 pm</span>
           </div>
           <div class="contact-detail">
             <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1669,7 +1718,7 @@
           <img src="./brand_assets/logo-white.svg" alt="La Palapa Cabo Pulmo">
         </a>
         <!-- EDITABLE: footer legal text -->
-        <p class="footer-copy">
+        <p class="footer-copy" data-i18n="footer-copy">
           © 2025 La Palapa Cabo Pulmo · Cabo Pulmo, BCS, México<br>
           Reserva de la Biósfera · Operador turístico local
         </p>
@@ -1711,6 +1760,214 @@
       { threshold: 0.12 }
     );
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* -- i18n translations -- */
+    const i18n = {
+      es: {
+        'nav-servicios': 'Servicios',
+        'nav-paquetes': 'Paquetes',
+        'nav-nosotros': 'Nosotros',
+        'nav-galeria': 'Galería',
+        'nav-contacto': 'Contacto',
+        'nav-cta': 'Reservar',
+        'nav-mobile-cta': 'Reservar por WhatsApp',
+        'hero-eyebrow': 'Reserva de la Biósfera · Cabo Pulmo, BCS',
+        'hero-title': 'El arrecife<br>más antiguo<br><em>del Pacífico.</em>',
+        'hero-tagline': 'Traslados, snorkel y buceo guiados por alguien que creció junto a este arrecife. No es un tour. Es el lugar donde vivimos.',
+        'hero-btn-book': 'Reservar salida',
+        'hero-btn-svc': 'Ver servicios',
+        'svc-eyebrow': 'Lo que hacemos',
+        'svc-headline': 'Tres maneras<br>de conocer el arrecife',
+        'svc-subtext': 'Operamos salidas pequeñas, nunca grupos masivos. Cada experiencia sale desde la playa de Cabo Pulmo.',
+        'svc-1-name': 'Traslados',
+        'svc-1-desc': 'Llegada y salida desde Los Barriles, La Ribera o San José del Cabo. Camioneta cómoda, tiempos flexibles y alguien que conoce cada curva del camino.',
+        'svc-1-link': 'Consultar disponibilidad',
+        'svc-2-name': 'Snorkel',
+        'svc-2-desc': 'Equipo completo incluido. Salidas en panga hacia los puntos más vivos del arrecife: El Cantil, Los Morros y La Sirena. Ideal para todas las edades.',
+        'svc-2-link': 'Consultar disponibilidad',
+        'svc-3-name': 'Buceo',
+        'svc-3-desc': 'Inmersiones guiadas en uno de los arrecifes de coral más ricos del Pacífico mexicano. Certificados PADI o con experiencia previa. Visibilidad típica: 10–20 m.',
+        'svc-3-link': 'Consultar disponibilidad',
+        'pkg-eyebrow': 'Combina los servicios',
+        'pkg-headline': 'Una experiencia completa<br>o la que tú necesites',
+        'pkg-subtext': 'Armamos la salida según tu grupo, tus tiempos y tu nivel. Sin paquetes rígidos — conversamos y ajustamos.',
+        'pkg-1-badge': 'Para empezar',
+        'pkg-1-name': 'Media jornada',
+        'pkg-1-desc': 'La opción perfecta para un primer encuentro con el arrecife o cuando el tiempo es corto.',
+        'pkg-1-li-1': 'Traslado desde tu hospedaje',
+        'pkg-1-li-2': 'Snorkel guiado (1.5 h en el agua)',
+        'pkg-1-li-3': 'Equipo completo incluido',
+        'pkg-1-li-4': 'Fruta y agua a bordo',
+        'pkg-1-dur': 'Duración aprox. 4 horas',
+        'pkg-2-badge': 'Más popular',
+        'pkg-2-name': 'Día completo',
+        'pkg-2-desc': 'La experiencia completa: llegas con calma, exploras el arrecife en superficie y en profundidad, y regresas al atardecer.',
+        'pkg-2-li-1': 'Traslado redondo',
+        'pkg-2-li-2': 'Snorkel guiado (2 h)',
+        'pkg-2-li-3': '2 inmersiones de buceo',
+        'pkg-2-li-4': 'Almuerzo en la palapa',
+        'pkg-2-li-5': 'Todo el equipo',
+        'pkg-2-dur': 'Duración aprox. 8 horas',
+        'pkg-3-badge': 'Para buzos',
+        'pkg-3-name': 'Tarde de buceo',
+        'pkg-3-desc': 'Dos inmersiones en los mejores puntos del arrecife, con tiempo entre salidas para descansar en la playa.',
+        'pkg-3-li-1': 'Traslado redondo',
+        'pkg-3-li-2': '2 inmersiones guiadas',
+        'pkg-3-li-3': 'Tanque 12 L + regulador',
+        'pkg-3-li-4': 'Botana entre inmersiones',
+        'pkg-3-dur': 'Duración aprox. 5 horas',
+        'about-eyebrow': 'Quiénes somos',
+        'about-headline': 'Nacidos en<br><em>Cabo Pulmo.</em>',
+        'about-p1': 'La Palapa no es una agencia. Es la familia que lleva generaciones viviendo junto al arrecife. Lo que ofrecemos no sale de un catálogo — sale de conocer este lugar en todas sus temporadas, sus corrientes, sus criaturas y sus días difíciles.',
+        'about-quote': '\u201cEste arrecife no es un producto. Es mi casa. Y si te lo muestro, es porque sé que lo vas a cuidar igual que yo.\u201d',
+        'about-p2': 'Operamos con grupos pequeños porque creemos que el arrecife merece visitantes que puedan escucharlo, no multitudes que lo ignoren. Cada salida es también un acto de conservación.',
+        'about-chip-1': 'Reserva de la Biósfera',
+        'about-chip-2': 'Grupos máx. 8 personas',
+        'about-chip-3': 'Operador local',
+        'about-chip-4': 'Sin anclas sobre el coral',
+        'about-badge-label': 'Arrecife más septentrional',
+        'about-badge-value': 'del Pacífico',
+        'gallery-eyebrow': 'El arrecife en imágenes',
+        'gallery-headline': 'Ver para creer,<br>bucear para entender',
+        'gallery-cap-1': 'El arrecife a 12 metros',
+        'gallery-cap-2': 'Coral cuerno de alce',
+        'gallery-cap-3': 'Snorkel en Los Morros',
+        'gallery-cap-4': 'Cardumen frente a La Punta',
+        'gallery-cap-5': 'Al final del día',
+        'gallery-cap-6': 'Tortuga prieta',
+        'test-eyebrow': 'Lo que dice la gente',
+        'test-headline': 'Cada salida<br>tiene su historia',
+        'test-subtext': 'Reseñas de quienes estuvieron aquí y quisieron compartirlo.',
+        'test-1-body': '\u201cLlevamos cuatro días en BCS y esto fue lo que más nos marcó. El guía conoce el arrecife como su patio — nos llevó exactamente donde estaban los jureles.\u201d',
+        'test-1-name': 'Alejandra M.',
+        'test-1-origin': 'CDMX · Diciembre 2024',
+        'test-2-body': '\u201cWe\'ve dived in Belize, Thailand, and the Philippines — Cabo Pulmo holds its own. Small group, zero crowding, and a guide who genuinely cares about the reef.\u201d',
+        'test-2-name': 'Ryan &amp; Claire T.',
+        'test-2-origin': 'San Diego, CA · March 2025',
+        'test-3-body': '\u201cLlevé a mis hijos de 9 y 12 años a snorkelear. Nunca había visto algo así — la tortuga pasó a menos de dos metros. El guía sabía exactamente dónde esperar.\u201d',
+        'test-3-name': 'Jorge P.',
+        'test-3-origin': 'Guadalajara · Semana Santa 2025',
+        'contact-eyebrow': 'Hablemos',
+        'contact-headline': '¿Cuándo llegás<br><em>a Cabo Pulmo?</em>',
+        'contact-subtext': 'Escríbenos por WhatsApp con tu fecha y el tamaño de tu grupo. Sin formularios. Sin esperas. Respuesta directa.',
+        'contact-wa-btn': 'Escribir por WhatsApp',
+        'contact-hours': 'Salidas: 6:00 am – 2:00 pm',
+        'footer-copy': '© 2025 La Palapa Cabo Pulmo · Cabo Pulmo, BCS, México<br>Reserva de la Biósfera · Operador turístico local',
+      },
+      en: {
+        'nav-servicios': 'Services',
+        'nav-paquetes': 'Packages',
+        'nav-nosotros': 'About Us',
+        'nav-galeria': 'Gallery',
+        'nav-contacto': 'Contact',
+        'nav-cta': 'Book Now',
+        'nav-mobile-cta': 'Book on WhatsApp',
+        'hero-eyebrow': 'Biosphere Reserve · Cabo Pulmo, BCS',
+        'hero-title': 'The oldest<br>reef<br><em>in the Pacific.</em>',
+        'hero-tagline': 'Transfers, snorkeling, and diving guided by someone who grew up beside this reef. Not a tour. The place we call home.',
+        'hero-btn-book': 'Book a trip',
+        'hero-btn-svc': 'View Services',
+        'svc-eyebrow': 'What we do',
+        'svc-headline': 'Three ways<br>to know the reef',
+        'svc-subtext': 'Small groups only, never mass tourism. Every experience departs from Cabo Pulmo beach.',
+        'svc-1-name': 'Transfers',
+        'svc-1-desc': 'Arrivals and departures from Los Barriles, La Ribera, or San José del Cabo. Comfortable van, flexible timing, and someone who knows every curve of the road.',
+        'svc-1-link': 'Check availability',
+        'svc-2-name': 'Snorkeling',
+        'svc-2-desc': 'Full equipment included. Boat trips to the most vibrant reef spots: El Cantil, Los Morros, and La Sirena. Great for all ages.',
+        'svc-2-link': 'Check availability',
+        'svc-3-name': 'Diving',
+        'svc-3-desc': 'Guided dives in one of the richest coral reefs in the Mexican Pacific. PADI-certified or with prior experience. Typical visibility: 10–20 m.',
+        'svc-3-link': 'Check availability',
+        'pkg-eyebrow': 'Combine the services',
+        'pkg-headline': 'A complete experience<br>or whatever you need',
+        'pkg-subtext': 'We build the trip around your group, your schedule, and your level. No rigid packages — we talk and adjust.',
+        'pkg-1-badge': 'Getting started',
+        'pkg-1-name': 'Half Day',
+        'pkg-1-desc': 'The perfect option for a first encounter with the reef, or when time is short.',
+        'pkg-1-li-1': 'Transfer from your accommodation',
+        'pkg-1-li-2': 'Guided snorkeling (1.5 h in the water)',
+        'pkg-1-li-3': 'Full equipment included',
+        'pkg-1-li-4': 'Fruit and water on board',
+        'pkg-1-dur': 'Approx. 4 hours',
+        'pkg-2-badge': 'Most popular',
+        'pkg-2-name': 'Full Day',
+        'pkg-2-desc': 'The full experience: arrive at ease, explore the reef on the surface and at depth, and return at sunset.',
+        'pkg-2-li-1': 'Round-trip transfer',
+        'pkg-2-li-2': 'Guided snorkeling (2 h)',
+        'pkg-2-li-3': '2 scuba dives',
+        'pkg-2-li-4': 'Lunch at the palapa',
+        'pkg-2-li-5': 'All equipment',
+        'pkg-2-dur': 'Approx. 8 hours',
+        'pkg-3-badge': 'For divers',
+        'pkg-3-name': 'Dive Afternoon',
+        'pkg-3-desc': 'Two dives at the best spots on the reef, with surface time between dives to rest on the beach.',
+        'pkg-3-li-1': 'Round-trip transfer',
+        'pkg-3-li-2': '2 guided dives',
+        'pkg-3-li-3': '12 L tank + regulator',
+        'pkg-3-li-4': 'Snack between dives',
+        'pkg-3-dur': 'Approx. 5 hours',
+        'about-eyebrow': 'Who we are',
+        'about-headline': 'Born in<br><em>Cabo Pulmo.</em>',
+        'about-p1': "La Palapa is not an agency. It's the family that has lived beside this reef for generations. What we offer doesn't come from a catalog — it comes from knowing this place through every season, its currents, its creatures, and its difficult days.",
+        'about-quote': '\u201cThis reef is not a product. It\'s my home. And if I show it to you, it\'s because I know you\'ll care for it the way I do.\u201d',
+        'about-p2': 'We work in small groups because we believe the reef deserves visitors who can listen to it, not crowds that ignore it. Every trip is also an act of conservation.',
+        'about-chip-1': 'Biosphere Reserve',
+        'about-chip-2': 'Max. 8 guests per trip',
+        'about-chip-3': 'Local operator',
+        'about-chip-4': 'No anchoring on coral',
+        'about-badge-label': 'Northernmost reef',
+        'about-badge-value': 'in the Pacific',
+        'gallery-eyebrow': 'The reef in images',
+        'gallery-headline': 'Seeing is believing,<br>diving is understanding',
+        'gallery-cap-1': 'The reef at 12 meters',
+        'gallery-cap-2': 'Elkhorn coral',
+        'gallery-cap-3': 'Snorkeling at Los Morros',
+        'gallery-cap-4': 'School of fish off La Punta',
+        'gallery-cap-5': 'End of day',
+        'gallery-cap-6': 'Black sea turtle',
+        'test-eyebrow': 'What people say',
+        'test-headline': 'Every trip<br>has its story',
+        'test-subtext': 'Reviews from those who were here and wanted to share it.',
+        'test-1-body': '\u201cWe spent four days in BCS and this was the highlight. The guide knows the reef like his own backyard — took us exactly where the jack fish were schooling.\u201d',
+        'test-1-name': 'Alejandra M.',
+        'test-1-origin': 'Mexico City · December 2024',
+        'test-2-body': '\u201cWe\'ve dived in Belize, Thailand, and the Philippines — Cabo Pulmo holds its own. Small group, zero crowding, and a guide who genuinely cares about the reef.\u201d',
+        'test-2-name': 'Ryan &amp; Claire T.',
+        'test-2-origin': 'San Diego, CA · March 2025',
+        'test-3-body': '\u201cI took my 9 and 12-year-old kids snorkeling. I\'d never seen anything like it — a turtle passed less than two meters away. The guide knew exactly where to wait.\u201d',
+        'test-3-name': 'Jorge P.',
+        'test-3-origin': 'Guadalajara · Easter 2025',
+        'contact-eyebrow': "Let's talk",
+        'contact-headline': 'When are you coming<br><em>to Cabo Pulmo?</em>',
+        'contact-subtext': 'Message us on WhatsApp with your date and group size. No forms. No waiting. Direct response.',
+        'contact-wa-btn': 'Message on WhatsApp',
+        'contact-hours': 'Departures: 6:00 am – 2:00 pm',
+        'footer-copy': '© 2025 La Palapa Cabo Pulmo · Cabo Pulmo, BCS, Mexico<br>Biosphere Reserve · Local tour operator',
+      }
+    };
+
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (i18n[lang] && i18n[lang][key] !== undefined) {
+          el.innerHTML = i18n[lang][key];
+        }
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+    }
+
+    /* On load: apply stored language preference */
+    (function() {
+      try {
+        const stored = localStorage.getItem('lang');
+        if (stored && stored !== 'es') setLang(stored);
+      } catch(e) {}
+    })();
   </script>
 
 </body>
